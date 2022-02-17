@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
+import { HttpModule } from '@nestjs/axios';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TokensService } from './services/tokens.service';
 import { TokensRepository } from './repositories/tokens.repository';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TokensRepository])],
+  imports: [HttpModule, TypeOrmModule.forFeature([TokensRepository])],
   providers: [TokensService],
 })
 export class TokensModule {}

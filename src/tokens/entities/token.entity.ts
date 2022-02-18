@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Tokens {
+export class Token {
   @PrimaryGeneratedColumn()
   id: string;
 

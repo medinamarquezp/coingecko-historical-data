@@ -1,5 +1,18 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { Tokens } from '../entities/tokens.entity';
+import { TokenDto } from '../dtos/token.dto';
+import { Token } from '../entities/token.entity';
 
-@EntityRepository(Tokens)
-export class TokensRepository extends Repository<Tokens> {}
+@EntityRepository(Token)
+export class TokensRepository extends Repository<Token> {
+  async findBySupplierId(supplierId: string): Promise<Token> {
+    return await this.findOne({
+      where: { supplierId: supplierId },
+    });
+  }
+
+  async setToken(tokenDto: TokenDto): Promise<Token> {
+    const token = await this.findBySupplierId(tokenDto.supplierId);
+    if (token) return await this.save(this.merge(token, tokenDto));
+    return await this.save(this.create(tokenDto));
+  }
+}

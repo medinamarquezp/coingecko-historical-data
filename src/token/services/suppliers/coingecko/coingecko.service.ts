@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from 'nestjs-http-promise';
 import { coingeckoConfig } from 'src/config/coingecko.config';
-import { CoinData } from 'src/tokens/interfaces/suppliers/coingecko/coin-data.interface';
+import { CoinData } from 'src/token/interfaces/suppliers/coingecko/coin-data.interface';
 
 @Injectable()
 export class CoinGeckoService {

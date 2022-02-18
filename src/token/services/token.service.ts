@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TokenDto } from '../dtos/token.dto';
 import { Token } from '../entities/token.entity';
-import { TokensRepository } from '../repositories/tokens.repository';
+import { TokenRepository } from '../repositories/token.repository';
 import { CoinGeckoService } from './suppliers/coingecko/coingecko.service';
 
 @Injectable()
-export class TokensService {
+export class TokenService {
   constructor(
-    @InjectRepository(TokensRepository)
-    private readonly tokensRepository: TokensRepository,
+    @InjectRepository(TokenRepository)
+    private readonly tokensRepository: TokenRepository,
     private readonly coingeckoService: CoinGeckoService,
   ) {}
 

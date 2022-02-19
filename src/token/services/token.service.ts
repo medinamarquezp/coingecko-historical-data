@@ -18,4 +18,14 @@ export class TokenService {
     const tokenDto = TokenDto.setFromCoinData(data);
     return await this.tokensRepository.setToken(tokenDto);
   }
+
+  async setTopMarket(top: number): Promise<Token[]> {
+    const tokens: Token[] = [];
+    const data = await this.coingeckoService.getTopMarket(top);
+    for await (const token of data) {
+      const savedToken = await this.setToken(token.id);
+      tokens.push(savedToken);
+    }
+    return tokens;
+  }
 }

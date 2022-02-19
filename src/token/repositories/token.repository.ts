@@ -12,7 +12,9 @@ export class TokenRepository extends Repository<Token> {
 
   async setToken(tokenDto: TokenDto): Promise<Token> {
     const token = await this.findBySupplierId(tokenDto.supplierId);
-    if (token) return await this.save(this.merge(token, tokenDto));
+    if (token) {
+      return await this.save(this.merge(token, tokenDto));
+    }
     return await this.save(this.create(tokenDto));
   }
 }

@@ -63,4 +63,18 @@ describe('Token service test', () => {
     expect(tokens[2].name).toBe('Tether');
     expect(tokens[4].name).toBe('USD Coin');
   });
+
+  it('should find existing token', async () => {
+    await tokensService.setToken('bitcoin');
+    const findBySupplierId = await tokensService.findToken('bitcoin');
+    const findByName = await tokensService.findToken('Bitcoin');
+    const findBySymbol = await tokensService.findToken('btc');
+    expect(findBySupplierId.supplierId).toBe('bitcoin');
+    expect(findByName.name).toBe('Bitcoin');
+    expect(findBySymbol.symbol).toBe('btc');
+  });
+
+  it('should throw an error when token not found', async () => {
+    await expect(tokensService.findToken('test')).rejects.toThrow();
+  });
 });

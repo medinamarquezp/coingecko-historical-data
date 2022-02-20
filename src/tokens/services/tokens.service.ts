@@ -28,4 +28,8 @@ export class TokensService {
     }
     return tokens;
   }
+
+  async findToken(tokenId: string): Promise<Token> {
+    return await this.tokensRepository.findToken(tokenId);
+  }
 }

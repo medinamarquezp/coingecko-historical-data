@@ -17,4 +17,12 @@ export class TokensRepository extends Repository<Token> {
     }
     return await this.save(this.create(tokenDto));
   }
+
+  async findToken(tokenId: string): Promise<Token> {
+    return await this.createQueryBuilder('tokens')
+      .where('tokens.supplier_id like :tokenId', { tokenId: `%${tokenId}%` })
+      .orWhere('tokens.name like :tokenId', { tokenId: `%${tokenId}%` })
+      .orWhere('tokens.symbol like :tokenId', { tokenId: `%${tokenId}%` })
+      .getOneOrFail();
+  }
 }

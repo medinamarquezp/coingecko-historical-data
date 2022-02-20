@@ -10,4 +10,4 @@ import { CoinGeckoService } from './services/suppliers/coingecko/coingecko.servi
   providers: [TokensService, CoinGeckoService],
   exports: [TokensService],
 })
-export class TokenModule {}
+export class TokensModule {}

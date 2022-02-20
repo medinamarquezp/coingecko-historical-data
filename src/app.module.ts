@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TokenModule } from './tokens/token.module';
+import { TokensModule } from './tokens/tokens.module';
 import { typeormConfig } from './config/typeorm.config';
 import { ConsoleModule } from 'nestjs-console';
 import { CommandsModule } from './commands/commands.module';
@@ -8,7 +8,7 @@ import { CommandsModule } from './commands/commands.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeormConfig),
-    TokenModule,
+    TokensModule,
     ConsoleModule,
     CommandsModule,
   ],

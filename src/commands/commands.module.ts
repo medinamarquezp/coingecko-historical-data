@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { TokenModule } from 'src/tokens/token.module';
+import { TokensModule } from 'src/tokens/tokens.module';
 import { CommandsConsole } from './commands.console';
 
 @Module({
-  imports: [TokenModule],
+  imports: [TokensModule],
   providers: [CommandsConsole],
 })
 export class CommandsModule {}

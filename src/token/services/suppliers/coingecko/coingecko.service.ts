@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { HttpService } from 'nestjs-http-promise';
 import { coingeckoConfig } from 'src/config/coingecko.config';
 import { CoinData } from 'src/token/interfaces/suppliers/coingecko/coin-data.interface';
@@ -12,6 +12,7 @@ export class CoinGeckoService {
     const response = await this.httpService.get(
       coingeckoConfig.coinDataPath(coinId),
     );
+    if (response.status === HttpStatus.NOT_FOUND) throw new NotFoundException();
     return response.data;
   }
 

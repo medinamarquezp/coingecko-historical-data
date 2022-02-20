@@ -3,16 +3,16 @@ import {
   bitoinCoinDataRS,
   top5MarketCapRS,
 } from 'test/mocks/coingecko/coingecko-api.responses';
-import { TokenService } from './token.service';
+import { TokensService } from './tokens.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Token } from '../entities/token.entity';
 import { typeormConfig } from 'src/config/typeorm.config';
-import { TokenRepository } from '../repositories/token.repository';
+import { TokensRepository } from '../repositories/tokens.repository';
 import { CoinGeckoService } from './suppliers/coingecko/coingecko.service';
 
 describe('Token service test', () => {
   let app: TestingModule;
-  let tokenService: TokenService;
+  let tokensService: TokensService;
 
   const mockCoinGeckoService = {
     getTokenData: jest.fn((coinId) =>
@@ -25,10 +25,10 @@ describe('Token service test', () => {
     app = await Test.createTestingModule({
       imports: [
         TypeOrmModule.forRoot(typeormConfig),
-        TypeOrmModule.forFeature([TokenRepository]),
+        TypeOrmModule.forFeature([TokensRepository]),
       ],
       providers: [
-        TokenService,
+        TokensService,
         {
           provide: CoinGeckoService,
           useValue: mockCoinGeckoService,
@@ -36,7 +36,7 @@ describe('Token service test', () => {
       ],
     }).compile();
 
-    tokenService = app.get<TokenService>(TokenService);
+    tokensService = app.get<TokensService>(TokensService);
   });
 
   afterAll(async () => {
@@ -44,11 +44,11 @@ describe('Token service test', () => {
   });
 
   it('should be defined', () => {
-    expect(tokenService).toBeDefined();
+    expect(tokensService).toBeDefined();
   });
 
   it('should set a token by ID', async () => {
-    const token = await tokenService.setToken('bitcoin');
+    const token = await tokensService.setToken('bitcoin');
     expect(mockCoinGeckoService.getTokenData).toHaveBeenCalledWith('bitcoin');
     expect(token).toBeInstanceOf(Token);
     expect(token.name).toBe('Bitcoin');
@@ -56,7 +56,7 @@ describe('Token service test', () => {
   });
 
   it('should set a top 5 tokens by market cap', async () => {
-    const tokens = await tokenService.setTopMarket(5);
+    const tokens = await tokensService.setTopMarket(5);
     expect(mockCoinGeckoService.getTopMarket).toHaveBeenCalled();
     expect(tokens.length).toBe(5);
     expect(tokens[0].name).toBe('Bitcoin');

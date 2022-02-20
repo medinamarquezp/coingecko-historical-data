@@ -10,7 +10,7 @@ import {
 
 const FIRST_GENESYS_DATE = new Date('2009-01-03');
 
-@Entity()
+@Entity({ name: 'tokens' })
 export class Token {
   @PrimaryGeneratedColumn()
   id: string;

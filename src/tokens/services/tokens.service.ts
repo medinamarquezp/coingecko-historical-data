@@ -19,9 +19,9 @@ export class TokensService {
     return await this.tokensRepository.setToken(tokenDto);
   }
 
-  async setTopMarket(top: number): Promise<Token[]> {
+  async setTopMarket(page: number, perPage: number): Promise<Token[]> {
     const tokens: Token[] = [];
-    const data = await this.coingeckoService.getTopMarket(top);
+    const data = await this.coingeckoService.getTopMarket(page, perPage);
     for await (const token of data) {
       const savedToken = await this.setToken(token.id);
       tokens.push(savedToken);

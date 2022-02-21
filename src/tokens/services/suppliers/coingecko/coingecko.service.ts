@@ -16,15 +16,15 @@ export class CoinGeckoService {
     return response.data;
   }
 
-  async getTopMarket(top: number): Promise<CoinMarket[]> {
+  async getTopMarket(page: number, perPage: number): Promise<CoinMarket[]> {
     const response = await this.httpService.get(
-      coingeckoConfig.coinMarketPath(top),
+      coingeckoConfig.coinMarketPath(page, perPage),
     );
     return response.data;
   }
 
   async geTotalActiveTokens(): Promise<number> {
     const response = await this.httpService.get(coingeckoConfig.global());
-    return response.data.active_cryptocurrencies;
+    return response.data.data.active_cryptocurrencies;
   }
 }

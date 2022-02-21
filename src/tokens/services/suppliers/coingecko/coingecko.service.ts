@@ -22,4 +22,9 @@ export class CoinGeckoService {
     );
     return response.data;
   }
+
+  async geTotalActiveTokens(): Promise<number> {
+    const response = await this.httpService.get(coingeckoConfig.global());
+    return response.data.active_cryptocurrencies;
+  }
 }

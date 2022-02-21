@@ -33,4 +33,8 @@ export class TokensService {
     const token = await this.tokensRepository.findToken(tokenId);
     return !!token ? token : null;
   }
+
+  async getTotalActiveTokens(): Promise<number> {
+    return this.coingeckoService.geTotalActiveTokens();
+  }
 }

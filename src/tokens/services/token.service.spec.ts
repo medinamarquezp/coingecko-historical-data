@@ -74,7 +74,8 @@ describe('Token service test', () => {
     expect(findBySymbol.symbol).toBe('btc');
   });
 
-  it('should throw an error when token not found', async () => {
-    await expect(tokensService.findToken('test')).rejects.toThrow();
+  it('should returns null when token not found', async () => {
+    const result = await tokensService.findToken('test');
+    expect(result).toBeNull();
   });
 });

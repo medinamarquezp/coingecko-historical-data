@@ -23,6 +23,6 @@ export class TokensRepository extends Repository<Token> {
       .where('tokens.supplier_id like :tokenId', { tokenId: `%${tokenId}%` })
       .orWhere('tokens.name like :tokenId', { tokenId: `%${tokenId}%` })
       .orWhere('tokens.symbol like :tokenId', { tokenId: `%${tokenId}%` })
-      .getOneOrFail();
+      .getOne();
   }
 }

@@ -30,6 +30,7 @@ export class TokensService {
   }
 
   async findToken(tokenId: string): Promise<Token> {
-    return await this.tokensRepository.findToken(tokenId);
+    const token = await this.tokensRepository.findToken(tokenId);
+    return !!token ? token : null;
   }
 }

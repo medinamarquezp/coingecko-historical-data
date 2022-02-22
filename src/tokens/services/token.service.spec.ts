@@ -56,7 +56,7 @@ describe('Token service test', () => {
   });
 
   it('should set a top 5 tokens by market cap', async () => {
-    const tokens = await tokensService.setTopMarket(5);
+    const tokens = await tokensService.setTopMarket(1, 5);
     expect(mockCoinGeckoService.getTopMarket).toHaveBeenCalled();
     expect(tokens.length).toBe(5);
     expect(tokens[0].name).toBe('Bitcoin');
